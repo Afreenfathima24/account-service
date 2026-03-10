@@ -36,12 +36,17 @@ public class UserController {
 
     @GetMapping
     public List<UserResponseDTO> getUsers(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String direction){
+            @RequestParam(required = false) Integer page,
+            @RequestParam(required = false) Integer size,
+            @RequestParam(required = false) String sortBy,
+            @RequestParam(required = false) String direction){
 
         return userService.getUsers(page, size, sortBy, direction);
+    }
+
+    @PostMapping("/bulk")
+    public List<UserResponseDTO> createUsers(@RequestBody List<UserRequestDTO> dtos){
+        return userService.createMultiUsers(dtos);
     }
 
     @GetMapping("/{id}")

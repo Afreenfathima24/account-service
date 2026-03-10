@@ -43,7 +43,16 @@ public class UserService {
         return UserMapper.toResponse(saved);
     }
 
-    public List<UserResponseDTO> getUsers(int page, int size, String sortBy, String direction){
+    public List<UserResponseDTO> createMultiUsers(List<UserRequestDTO> dtos){
+        return dtos.stream()
+                .map(this::createUser)
+                .toList();
+    }
+
+    public List<UserResponseDTO> getUsers(Integer page, Integer size, String sortBy, String direction){
+        if (page == null || size == null) {
+            return userRepository.findAll().stream().map(UserMapper::toResponse).toList();
+        }
 
         Sort sort = direction.equalsIgnoreCase("asc")
                 ? Sort.by(sortBy).ascending()
