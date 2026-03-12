@@ -1,10 +1,11 @@
 package com.example.accountservice.dto;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserPatchDTO {
 
     private String name;
